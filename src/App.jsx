@@ -4,11 +4,13 @@ import Button from "./components/Button";
 import Input from "./components/Input";
 import { FormContext } from "./Context";
 import Progres from "./components/Progres";
+import Navbar from "./components/Navbar";
 
 function App() {
   const { steper, setSteper } = useContext(FormContext);
   const { name, setName } = useContext(FormContext);
   const { password, setPassword } = useContext(FormContext);
+  const { lang } = useContext(FormContext);
 
   function handelPrev() {
     steper > 1 && setSteper((prev) => prev - 1);
@@ -28,38 +30,55 @@ function App() {
     }
   }
   return (
-    <div className="container h-screen mx-auto flex justify-center items-center">
-      <div className=" relative flex flex-col justify-center items-center rounded-md bg-gray-50 w-[500px] h-[500px]">
-        {steper === 1 && (
-          <Input
-            placeholder="Name"
-            type="text"
-            value={name}
-            setFunction={setName}
-          />
-        )}
+    <div className="container h-screen mx-auto">
+      <Navbar />
+      <div
+        style={{ direction: lang === "EN" ? "ltr" : "rtl" }}
+        className=" mx-auto mt-20 relative flex flex-col items-center rounded-md bg-gray-50 w-[500px] h-[400px]"
+      >
+        <h1 className="text-xl mt-10 font-semibold">
+          {lang === "EN" ? "Log in" : "تسجيل الدخول"}
+        </h1>
+        <div className="absolute top-[35%]">
+          {steper === 1 && (
+            <Input
+              placeholder={lang === "EN" ? "Name" : "الاسم"}
+              type="text"
+              value={name}
+              setFunction={setName}
+            />
+          )}
 
-        {steper === 2 && (
-          <Input
-            placeholder="Password"
-            type="password"
-            value={password}
-            setFunction={setPassword}
-          />
-        )}
+          {steper === 2 && (
+            <Input
+              placeholder={lang === "EN" ? "Password" : "الباسورد"}
+              type="password"
+              value={password}
+              setFunction={setPassword}
+            />
+          )}
 
-        {steper === 3 && (
-          <p className="bg-white font-medium text-xl p-5">You can submit now</p>
-        )}
+          {steper === 3 && (
+            <p className="bg-white font-medium text-xl p-5">
+              {lang === "EN" ? "You can submit now" : "يمكنك التسجيل الان"}
+            </p>
+          )}
+        </div>
 
         <Progres />
 
         <div className="w-full px-4 absolute bottom-2 flex justify-between">
-          <Button value="Prev" onClick={handelPrev} />
+          <Button
+            value={lang === "EN" ? "Prev" : "السابق"}
+            onClick={handelPrev}
+          />
           {steper === 3 ? (
-            <Button value="Submit" />
+            <Button value={lang === "EN" ? "Submit" : "تسجيل"} />
           ) : (
-            <Button value="Next" onClick={handelNext} />
+            <Button
+              value={lang === "EN" ? "Next" : "التالي"}
+              onClick={handelNext}
+            />
           )}
         </div>
       </div>
