@@ -3,7 +3,7 @@ export default function Input({ placeholder, type, value, setFunction }) {
   return (
     <label
       htmlFor={placeholder}
-      className="cursor-pointer text-xl w-full px-2 flex justify-around items-center"
+      className="cursor-pointer text-xl w-full px-2 flex gap-2 justify-around items-center"
     >
       {placeholder}:
       <input
