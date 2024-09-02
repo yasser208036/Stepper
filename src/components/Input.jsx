@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-export default function Input({ placeholder, type, value, setFunction }) {
+export default function Input({ placeholder, type, value, onChange }) {
   return (
     <label
       htmlFor={placeholder}
@@ -13,7 +13,7 @@ export default function Input({ placeholder, type, value, setFunction }) {
         value={value}
         placeholder={placeholder}
         autoFocus
-        onChange={(e) => setFunction(e.target.value)}
+        onChange={(e) => onChange(e.target.value)}
       />
     </label>
   );

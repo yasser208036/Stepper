@@ -45,7 +45,7 @@ function App() {
               placeholder={lang === "EN" ? "Name" : "الاسم"}
               type="text"
               value={name}
-              setFunction={setName}
+              onChange={setName}
             />
           )}
 
@@ -54,7 +54,7 @@ function App() {
               placeholder={lang === "EN" ? "Password" : "الباسورد"}
               type="password"
               value={password}
-              setFunction={setPassword}
+              onChange={setPassword}
             />
           )}
 
