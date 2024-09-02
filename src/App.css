@@ -28,13 +28,13 @@ input {
   padding-left: 8px;
 }
 /* nav */
-header a {
+header span {
   padding: 12px 16px;
   display: block;
   text-align: left;
   cursor: pointer;
 }
-header a:hover {
+header span:hover {
   background-color: #ddd;
 }
 .dropdown:hover .dropdown-content {
