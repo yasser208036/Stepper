@@ -7,7 +7,7 @@ export default function Input({ placeholder, type, value, setFunction }) {
     >
       {placeholder}:
       <input
-        className="outline-none w-[350px] h-10 pl-2 capitalize"
+        className="outline-none w-[350px] h-10 ps-2 capitalize"
         type={type}
         id={placeholder}
         value={value}
