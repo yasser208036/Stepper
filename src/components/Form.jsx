@@ -18,7 +18,6 @@ export default function Form() {
         console.log(values);
       },
     });
-  console.log(errors);
   function handelPrev() {
     step > 1 && setStep((prev) => prev - 1);
   }
@@ -55,6 +54,7 @@ export default function Form() {
                 type="email"
                 placeholder={lang === "EN" ? "Your email" : "الأيميل"}
                 id="email"
+                autoFocus
               />
             </label>
             {/* error massage */}
@@ -81,6 +81,7 @@ export default function Form() {
                 type="password"
                 placeholder={lang === "EN" ? "Password" : "الباسورد"}
                 id="password"
+                autoFocus
               />
             </label>
             {errors.password && touched.password && (
