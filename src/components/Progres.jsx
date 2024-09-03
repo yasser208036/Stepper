@@ -1,13 +1,13 @@
 import { useContext } from "react";
 import { FormContext } from "../Context";
 export default function Progres() {
-  const { steper, lang } = useContext(FormContext);
+  const { step, lang } = useContext(FormContext);
   return (
     <>
       <ul className="progres h-fit absolute bottom-[30%] flex justify-between w-96">
-        <li className={`circle ${steper === 1 && "active"}`}>1</li>
-        <li className={`circle ${steper === 2 && "active"}`}>2</li>
-        <li className={`circle ${steper === 3 && "active"}`}>3</li>
+        <li className={`circle ${step === 1 && "active"}`}>1</li>
+        <li className={`circle ${step === 2 && "active"}`}>2</li>
+        <li className={`circle ${step === 3 && "active"}`}>3</li>
       </ul>
       <ul className="w-full flex justify-around absolute bottom-1/4">
         <li className="text-blue-500">

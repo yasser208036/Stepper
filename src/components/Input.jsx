@@ -13,7 +13,7 @@ export default function Input({ placeholder, type, value, onChange }) {
         value={value}
         placeholder={placeholder}
         autoFocus
-        onChange={(e) => onChange(e.target.value)}
+        onChange={() => onChange}
       />
     </label>
   );
