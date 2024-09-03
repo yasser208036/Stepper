@@ -13,7 +13,7 @@ export default function Form() {
         email: "",
         password: "",
       },
-      validationSchema: validationSchema,
+      validationSchema: validationSchema(lang),
       onSubmit: (values) => {
         console.log(values);
       },
