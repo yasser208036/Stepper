@@ -1,7 +1,6 @@
 import "./App.css";
 import { useContext } from "react";
 import { FormContext } from "./Context";
-import Progres from "./components/Progres";
 import Navbar from "./components/Navbar";
 import Form from "./components/Form";
 
@@ -18,7 +17,6 @@ function App() {
           {lang === "EN" ? "Log in" : "تسجيل الدخول"}
         </h1>
         <Form />
-        <Progres />
       </div>
     </div>
   );
