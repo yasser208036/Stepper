@@ -6,7 +6,7 @@ import { Formik } from "../context/FormkContext";
 
 export default function Steper() {
   const { step, lang, setStep } = useContext(FormContext);
-  const { errors } = useContext(Formik);
+  const { errors, handleSubmit } = useContext(Formik);
 
   function handelPrev() {
     step > 1 && setStep((prev) => prev - 1);
@@ -34,7 +34,11 @@ export default function Steper() {
           onClick={handelPrev}
         />
         {step === 3 ? (
-          <Button value={lang === "EN" ? "Submit" : "تسجيل"} />
+          <Button
+            value={lang === "EN" ? "Submit" : "تسجيل"}
+            onClick={handleSubmit}
+            type="submit"
+          />
         ) : (
           <Button
             value={lang === "EN" ? "Next" : "التالي"}

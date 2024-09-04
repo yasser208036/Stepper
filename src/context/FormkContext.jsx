@@ -12,6 +12,9 @@ export default function FormkContext({ children }) {
         password: "",
       },
       validationSchema: validationSchema,
+      onSubmit: (values) => {
+        console.log(values);
+      },
     });
   const val = {
     values,
