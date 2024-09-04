@@ -2,7 +2,7 @@ import { createContext, useState } from "react";
 
 export const FormContext = createContext();
 // eslint-disable-next-line react/prop-types
-export default function Context({ children }) {
+export default function MainContext({ children }) {
   const [step, setStep] = useState(1);
   const [lang, setLang] = useState("EN");
 

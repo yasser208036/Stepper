@@ -1,8 +1,9 @@
 import "./App.css";
 import { useContext } from "react";
-import { FormContext } from "./Context";
+import { FormContext } from "./context/MainContext";
 import Navbar from "./components/Navbar";
 import Form from "./components/Form";
+import Steper from "./components/Steper";
 
 function App() {
   const { lang } = useContext(FormContext);
@@ -17,6 +18,7 @@ function App() {
           {lang === "EN" ? "Log in" : "تسجيل الدخول"}
         </h1>
         <Form />
+        <Steper />
       </div>
     </div>
   );

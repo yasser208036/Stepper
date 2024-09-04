@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { FormContext } from "../Context";
+import { FormContext } from "../context/MainContext";
 export default function Progres() {
   const { step, lang } = useContext(FormContext);
   return (

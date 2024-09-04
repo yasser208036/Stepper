@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { FormContext } from "../Context";
 import { RiArrowDropDownLine } from "react-icons/ri";
+import { FormContext } from "../context/MainContext";
 
 export default function Navbar() {
   const { lang, setLang } = useContext(FormContext);
