@@ -57,7 +57,7 @@ export default function Form() {
               />
             </label>
             {errors.password && touched.password && (
-              <p className="text-red-500 ms-16">{errors.password}</p>
+              <p className="text-red-500 ms-24">{errors.password}</p>
             )}
           </>
         )}

@@ -8,15 +8,11 @@ const emailRegex = /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gm;
 export const validationSchema = yup.object().shape({
   email: yup
     .string()
-    .matches(emailRegex, {
-      message: "Invalid email address",
-    })
+    .matches(emailRegex, "Invalid email address")
     .required("Required"),
   password: yup
     .string()
     .min(8)
-    .matches(passwordRules, {
-      message: "Please creat a strong password",
-    })
+    .matches(passwordRules, "Please creat a strong password")
     .required("Required"),
 });
