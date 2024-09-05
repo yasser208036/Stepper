@@ -19,7 +19,7 @@ export const validationSchema = yup.object().shape({
 
 import * as Yup from "yup";
 
-const phoneRules = /^\d{10}$/;
+const phoneRules = /^\(\d{3}\) \d{3}-\d{4}$/g;
 
 export const validation = Yup.object().shape({
   name: Yup.string().required("Name is required"),

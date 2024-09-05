@@ -17,7 +17,17 @@ export default function NewForm() {
     },
   });
   const { values, errors, touched, handleChange, handleBlur } = formik;
-
+  const formatPhoneNum = (value) => {
+    const phoneNum = value.replace(/[^\d]/g, "");
+    if (phoneNum.length < 4) return phoneNum;
+    if (phoneNum.length < 7) {
+      return `(${phoneNum.slice(0, 3)}) ${phoneNum.slice(3)}`;
+    }
+    return `(${phoneNum.slice(0, 3)}) ${phoneNum.slice(3, 6)}-${phoneNum.slice(
+      6,
+      10
+    )}`;
+  };
   return (
     <FormikProvider value={formik}>
       <Form autoComplete="off" className="m-auto w-96">
@@ -67,10 +77,10 @@ export default function NewForm() {
                       type="text"
                       name={`phones[${index}].number`}
                       id={`phones[${index}]`}
-                      value={phone.number}
+                      value={formatPhoneNum(phone.number)}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      className={`outline-none w-3/4 h-10 
+                      className={`ps-3 outline-none w-3/4 h-10 
                       ${
                         errors.phones &&
                         errors.phones[index] &&
