@@ -16,29 +16,41 @@ export const validationSchema = yup.object().shape({
     .matches(passwordRules, "Please creat a strong password")
     .required("Required"),
 });
-const phoneRules = /^01\d{9}$/;
 
-export const validation = yup.object().shape({
-  name: yup.string().required("required"),
-  phones: yup.array().of(
-    yup
-      .string()
-      .matches(phoneRules, "Phone number must start with 01 and have 11 digits")
-      .required("Phone number is required")
-      // إضافة اختبار مخصص للتحقق من أن الرقم غير مكرر
-      .test(
-        "unique",
-        "This phone number is already used",
-        function (value, context) {
-          const { path, parent } = context; // parent هو المصفوفة بأكملها (الـ phones)
-          const currentIndex = Number(path.match(/\d+/)[0]); // استخرج رقم الفهرس من المسار
-          // تحقق مما إذا كان الرقم موجودًا بالفعل في الأرقام السابقة
-          const isDuplicate =
-            parent.filter(
-              (phone, index) => phone === value && index !== currentIndex
-            ).length > 0;
-          return !isDuplicate; // إذا كان الرقم مكررًا، نعيد false
-        }
-      )
-  ),
+import * as Yup from "yup";
+
+const phoneRules = /^\d{10}$/;
+
+export const validation = Yup.object().shape({
+  name: Yup.string().required("Name is required"),
+  phones: Yup.array()
+    .of(
+      Yup.object().shape({
+        countryCode: Yup.string().required("Country code"),
+        number: Yup.string()
+          .matches(phoneRules, "Phone number must be exactly 10 digits")
+          .required("Phone number must be exactly 10 digits"),
+      })
+    )
+    .test("uniqueNumbers", "Phone numbers must be unique", function (phones) {
+      const phoneNumbers = phones.map((phone) => phone.number);
+
+      // تخزين أرقام مكررة
+      const duplicates = phoneNumbers.filter(
+        (number, index) => phoneNumbers.indexOf(number) !== index
+      );
+
+      // إذا كانت هناك أرقام مكررة، نظهر الخطأ على الحقول
+      if (duplicates.length > 0) {
+        return this.createError({
+          path: `phones[${phoneNumbers.indexOf(duplicates[0])}].number`,
+          message: "This phone number is duplicated",
+        });
+      }
+
+      // لا يوجد تكرار، تابع التحقق
+      return true;
+    }),
 });
+
+// بقية الكود الخاص بـ Formik form setup كما هو

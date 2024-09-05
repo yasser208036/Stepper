@@ -4,7 +4,12 @@ export default function NewForm() {
   const formik = useFormik({
     initialValues: {
       name: "",
-      phones: [""],
+      phones: [
+        {
+          countryCode: "",
+          number: "",
+        },
+      ],
     },
     validationSchema: validation,
     onSubmit: (values) => {
@@ -15,7 +20,7 @@ export default function NewForm() {
 
   return (
     <FormikProvider value={formik}>
-      <Form className="m-auto w-96">
+      <Form autoComplete="off" className="m-auto w-96">
         <label htmlFor="name">Your name</label>
         <input
           type="text"
@@ -39,27 +44,63 @@ export default function NewForm() {
                   <label htmlFor={`phones[${index}]`}>
                     Phone number {index + 1}
                   </label>
-                  <input
-                    type="text"
-                    name={`phones[${index}]`}
-                    id={`phones[${index}]`}
-                    value={phone}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className={`outline-none w-full h-10 
+                  <div className="w-full">
+                    <input
+                      type="text"
+                      name={`phones[${index}].countryCode`}
+                      value={phone.countryCode}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      className={`outline-none w-1/4 h-10 
+                        ${
+                          errors.phones &&
+                          errors.phones[index] &&
+                          errors.phones[index].countryCode &&
+                          touched.phones &&
+                          touched.phones[index] &&
+                          touched.phones[index].countryCode &&
+                          "border border-red-500"
+                        }`}
+                      placeholder="+20"
+                    />
+                    <input
+                      type="text"
+                      name={`phones[${index}].number`}
+                      id={`phones[${index}]`}
+                      value={phone.number}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      className={`outline-none w-3/4 h-10 
                       ${
                         errors.phones &&
                         errors.phones[index] &&
+                        errors.phones[index].number &&
                         touched.phones &&
                         touched.phones[index] &&
+                        touched.phones[index].number &&
                         "border border-red-500"
                       }`}
-                  />
+                    />
+                  </div>
+
                   {errors.phones &&
                     errors.phones[index] &&
                     touched.phones &&
                     touched.phones[index] && (
-                      <p className="text-red-500">{errors.phones[index]}</p>
+                      <div className="flex relative h-7">
+                        {errors.phones[index].countryCode &&
+                          touched.phones[index].countryCode && (
+                            <p className="text-red-500 absolute left-0">
+                              {errors.phones[index].countryCode}
+                            </p>
+                          )}
+                        {errors.phones[index].number &&
+                          touched.phones[index].number && (
+                            <p className="text-red-500 absolute right-0">
+                              {errors.phones[index].number}
+                            </p>
+                          )}
+                      </div>
                     )}
                   {index > 0 && (
                     <button
@@ -74,7 +115,12 @@ export default function NewForm() {
               ))}
               <button
                 type="button"
-                onClick={() => push("")}
+                onClick={() =>
+                  push({
+                    countryCode: "",
+                    number: "",
+                  })
+                }
                 className="bg-blue-500 text-white px-4 py-2 mt-4"
               >
                 Add more phone numbers
