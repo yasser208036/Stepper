@@ -30,5 +30,9 @@ export const validation = yup.object().shape({
         )
         .required("Phone number is required")
     )
-    .min(1, "At least one phone number is required"),
+    .min(1, "At least one phone number is required")
+    .test("unique", "Phone numbers must be unique", function (phones) {
+      const uniquePhones = new Set(phones);
+      return uniquePhones.size === phones.length; // تأكد من أن كل الأرقام فريدة
+    }),
 });
