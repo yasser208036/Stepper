@@ -39,7 +39,7 @@ export default function NewForm() {
           value={values.name}
           onChange={handleChange}
           onBlur={handleBlur}
-          className={`outline-none w-full h-10 ${
+          className={`ps-3 capitalize outline-none w-full h-10 ${
             errors.name && touched.name && "border border-red-500"
           }`}
         />
@@ -54,14 +54,14 @@ export default function NewForm() {
                   <label htmlFor={`phones[${index}]`}>
                     Phone number {index + 1}
                   </label>
-                  <div className="w-full">
+                  <div className="w-full flex justify-between">
                     <input
                       type="text"
                       name={`phones[${index}].countryCode`}
                       value={phone.countryCode}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      className={`outline-none w-1/4 h-10 
+                      className={`ps-3 outline-none w-[15%] h-10 
                         ${
                           errors.phones &&
                           errors.phones[index] &&
