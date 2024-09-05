@@ -16,3 +16,19 @@ export const validationSchema = yup.object().shape({
     .matches(passwordRules, "Please creat a strong password")
     .required("Required"),
 });
+const phoneRules = /^01\d{9}$/;
+export const validation = yup.object().shape({
+  name: yup.string().required("required"),
+  phones: yup
+    .array()
+    .of(
+      yup
+        .string()
+        .matches(
+          phoneRules,
+          "Phone number must start with 01 and have 11 digits"
+        )
+        .required("Phone number is required")
+    )
+    .min(1, "At least one phone number is required"),
+});
