@@ -1,12 +1,14 @@
 import { FieldArray, Form, FormikProvider, useFormik } from "formik";
 import { validation } from "../schemas";
+import { useState } from "react";
 export default function NewForm() {
+  const [countryCod, setCountryCode] = useState("");
   const formik = useFormik({
     initialValues: {
       name: "",
       phones: [
         {
-          countryCode: "",
+          countryCode: countryCod,
           number: "",
         },
       ],
@@ -16,7 +18,8 @@ export default function NewForm() {
       console.log("Form values:", values);
     },
   });
-  const { values, errors, touched, handleChange, handleBlur } = formik;
+  const { values, errors, touched, handleChange, handleBlur, setFieldValue } =
+    formik;
   const formatPhoneNum = (value) => {
     const phoneNum = value.replace(/[^\d]/g, "");
     if (phoneNum.length < 4) return phoneNum;
@@ -28,6 +31,12 @@ export default function NewForm() {
       10
     )}`;
   };
+  const handelCountryCode = (countryCode) => {
+    setCountryCode(countryCode);
+    values.phones.forEach((phone, i) =>
+      setFieldValue(`phones[${i}].countryCode`, countryCode)
+    );
+  };
   return (
     <FormikProvider value={formik}>
       <Form autoComplete="off" className="m-auto w-96">
@@ -36,11 +45,12 @@ export default function NewForm() {
           type="text"
           id="name"
           name="name"
+          placeholder="Type your name"
           value={values.name}
           onChange={handleChange}
           onBlur={handleBlur}
           className={`ps-3 capitalize outline-none w-full h-10 ${
-            errors.name && touched.name && "border border-red-500"
+            errors.name && touched.name ? "border-red-500" : "border-blue-500"
           }`}
         />
         {errors.name && touched.name && (
@@ -49,8 +59,22 @@ export default function NewForm() {
         <FieldArray name="phones">
           {({ push, remove }) => (
             <div>
+              <div className="p-4 ">
+                <label htmlFor="countryCode">Country code :</label>
+                <select
+                  className="ms-4 border border-blue-500 outline-none p-2 rounded-md"
+                  name=""
+                  id="countryCode"
+                  onChange={(e) => handelCountryCode(e.target.value)}
+                >
+                  <option value="">Select country code</option>
+                  <option value="+20">Egypt</option>
+                  <option value="+966">Saudi Arabia</option>
+                  <option value="+971">United Arab Emirates</option>
+                </select>
+              </div>
               {values.phones.map((phone, index) => (
-                <div key={index} className="mt-4">
+                <div key={index}>
                   <label htmlFor={`phones[${index}]`}>
                     Phone number {index + 1}
                   </label>
@@ -68,10 +92,12 @@ export default function NewForm() {
                           errors.phones[index].countryCode &&
                           touched.phones &&
                           touched.phones[index] &&
-                          touched.phones[index].countryCode &&
-                          "border border-red-500"
+                          touched.phones[index].countryCode
+                            ? "border-red-500"
+                            : "border-blue-500"
                         }`}
                       placeholder="+20"
+                      readOnly
                     />
                     <input
                       type="text"
@@ -80,6 +106,7 @@ export default function NewForm() {
                       value={formatPhoneNum(phone.number)}
                       onChange={handleChange}
                       onBlur={handleBlur}
+                      placeholder="Type your phone number"
                       className={`ps-3 outline-none w-3/4 h-10 
                       ${
                         errors.phones &&
@@ -87,31 +114,33 @@ export default function NewForm() {
                         errors.phones[index].number &&
                         touched.phones &&
                         touched.phones[index] &&
-                        touched.phones[index].number &&
-                        "border border-red-500"
+                        touched.phones[index].number
+                          ? "border-red-500"
+                          : "border-blue-500"
                       }`}
                     />
                   </div>
-
-                  {errors.phones &&
-                    errors.phones[index] &&
-                    touched.phones &&
-                    touched.phones[index] && (
-                      <div className="flex relative h-7">
-                        {errors.phones[index].countryCode &&
-                          touched.phones[index].countryCode && (
-                            <p className="text-red-500 absolute left-0">
-                              {errors.phones[index].countryCode}
-                            </p>
-                          )}
-                        {errors.phones[index].number &&
-                          touched.phones[index].number && (
-                            <p className="text-red-500 absolute right-0">
-                              {errors.phones[index].number}
-                            </p>
-                          )}
-                      </div>
-                    )}
+                  <div className="h-7">
+                    {errors.phones &&
+                      errors.phones[index] &&
+                      touched.phones &&
+                      touched.phones[index] && (
+                        <div className="flex relative">
+                          {errors.phones[index].countryCode &&
+                            touched.phones[index].countryCode && (
+                              <p className="text-red-500 absolute left-0">
+                                {errors.phones[index].countryCode}
+                              </p>
+                            )}
+                          {errors.phones[index].number &&
+                            touched.phones[index].number && (
+                              <p className="text-red-500 absolute right-0">
+                                {errors.phones[index].number}
+                              </p>
+                            )}
+                        </div>
+                      )}
+                  </div>
                   {index > 0 && (
                     <button
                       type="button"
@@ -127,7 +156,7 @@ export default function NewForm() {
                 type="button"
                 onClick={() =>
                   push({
-                    countryCode: "",
+                    countryCode: countryCod,
                     number: "",
                   })
                 }

@@ -26,7 +26,7 @@ export const validation = Yup.object().shape({
   phones: Yup.array()
     .of(
       Yup.object().shape({
-        countryCode: Yup.string().required("Enter code"),
+        countryCode: Yup.string().required("Required"),
         number: Yup.string()
           .matches(phoneRules, "Phone number must be exactly 10 digits")
           .required("Phone number must be exactly 10 digits"),
